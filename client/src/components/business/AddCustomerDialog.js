@@ -1,13 +1,7 @@
 import { Modal, Form } from 'antd';
-import TransactionForm from './TransactionForm';
-const AddTransactionDialog = ({
-  isModalVisible,
-  onAddTransaction,
-  setIsModalVisible,
-  customersList,
-  updateCustomersList,
-  isLoading,
-}) => {
+import CustomerForm from './CustomerForm';
+
+const AddCustomerDialog = ({ isModalVisible, setIsModalVisible, onAddCustomer, isLoading }) => {
   const [form] = Form.useForm();
   const handleCancel = () => {
     form.resetFields();
@@ -16,27 +10,23 @@ const AddTransactionDialog = ({
   const onSubmit = () => {
     form.validateFields().then((values) => {
       console.log(values);
-      onAddTransaction(values);
+      onAddCustomer(values);
       form.resetFields();
       setIsModalVisible(false);
     });
   };
   return (
     <Modal
-      title="Add New Transaction"
+      title="Register new customer"
       visible={isModalVisible}
       onOk={onSubmit}
-      okText="Add"
+      okText="Register"
       onCancel={handleCancel}
       confirmLoading={isLoading}
     >
-      <TransactionForm
-        form={form}
-        customersList={customersList}
-        updateCustomersList={updateCustomersList}
-      />
+      <CustomerForm form={form} />
     </Modal>
   );
 };
 
-export default AddTransactionDialog;
+export default AddCustomerDialog;
